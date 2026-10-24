@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#4f46e5">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<title>الأستاذ هشام الجيزاوي - منصة تدريس الفيزياء</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<style>
+:root{--bg:#0b0f19;--card:#111827;--line:#1f2937;--text:#f8fafc;--muted:#94a3b8;--blue:#2563eb;--sky:#38bdf8;--green-bg:#064e3b;--green-bd:#059669;--green:#6ee7b7;--ind-bg:#1e1b4b;--ind-bd:#4338ca;--ind:#e0e7ff;--red:#dc2626}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Cairo',Tahoma,sans-serif}
+body{background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;padding-bottom:30px;line-height:1.6}
+:focus-visible{outline:2px solid var(--sky);outline-offset:2px}
+header{background:var(--card);border-bottom:1px solid var(--line);padding:14px 16px;display:flex;justify-content:space-between;align-items:center;gap:10px;box-shadow:0 4px 6px rgba(0,0,0,.2)}
+.logo-area{display:flex;align-items:center;gap:10px}
+.logo-icon{width:38px;height:38px;border-radius:10px;background:#4f46e5;display:flex;align-items:center;justify-content:center;flex:none}
+.logo-area h1{font-size:1.1rem;font-weight:700;line-height:1.3}
+.logo-area p{color:var(--sky);font-size:.72rem;margin-top:2px}
+.wa-head{background:var(--green-bg);border:1px solid var(--green-bd);color:var(--green);padding:6px 12px;border-radius:8px;text-decoration:none;font-size:.75rem;display:flex;flex-direction:column;align-items:center;line-height:1.4}
+.wa-head b{color:#fff;font-size:.85rem}
+main{flex:1;max-width:600px;width:100%;margin:15px auto;padding:0 12px;display:flex;flex-direction:column;gap:15px}
+.box{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px}
+.admin-title{font-size:1.15rem;font-weight:700;line-height:1.5}
+.admin-sub{color:var(--sky);font-size:.78rem;margin-top:4px}
+.preview-link{background:none;border:0;color:var(--sky);font-size:.8rem;cursor:pointer;font-weight:600;white-space:nowrap;font-family:inherit}
+.admin-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;margin-bottom:12px;border-bottom:1px solid var(--line);padding-bottom:12px}
+.box h3{color:var(--sky);font-size:1rem;margin-bottom:10px}
+label{display:block;font-size:.8rem;font-weight:600;margin:6px 0 4px}
+input,select,textarea{width:100%;background:#0b0f19;border:1px solid #374151;color:#fff;padding:10px;border-radius:8px;margin-bottom:6px;outline:none;font-size:.88rem}
+input:focus,select:focus,textarea:focus{border-color:var(--sky)}
+.btn-pub{background:var(--blue);color:#fff;border:0;width:100%;padding:12px;border-radius:8px;font-weight:700;cursor:pointer;font-size:.92rem;margin-top:6px}
+.btn-pub:hover{background:#1d4ed8}.btn-pub:disabled{opacity:.6}
+.lecture-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:0 4px 12px rgba(0,0,0,.4);display:flex;flex-direction:column;gap:12px}
+.badge{background:rgba(56,189,248,.1);color:var(--sky);border:1px solid rgba(56,189,248,.3);padding:4px 10px;border-radius:6px;font-size:.75rem;width:fit-content;font-weight:700}
+.badge.live{background:rgba(220,38,38,.15);color:#f87171;border-color:var(--red);animation:pulse 1.5s infinite}
+@keyframes pulse{50%{opacity:.55}}
+@media (prefers-reduced-motion:reduce){.badge.live{animation:none}}
+.lecture-title{font-size:1.25rem;font-weight:700;line-height:1.5}
+.lecture-desc{color:var(--muted);font-size:.85rem;line-height:1.7;background:#0b0f19;padding:10px;border-radius:8px;border:1px solid var(--line);white-space:pre-wrap}
+iframe{width:100%;aspect-ratio:16/9;border-radius:10px;border:none;background:#000;display:block}
+.action-btn{background:var(--ind-bg);border:1px solid var(--ind-bd);color:var(--ind);padding:12px;border-radius:10px;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:8px;font-weight:700;font-size:.9rem;cursor:pointer;font-family:inherit}
+.action-btn:hover{background:#312e81}
+.btn-exam{background:var(--blue);border-color:var(--blue);color:#fff}
+.btn-wa{background:var(--green-bg);border-color:var(--green-bd);color:var(--green)}
+.btn-del{background:var(--red);color:#fff;border:0;padding:6px 12px;border-radius:6px;font-size:.78rem;cursor:pointer;font-weight:700}
+.btn-gray{background:#475569;color:#fff;border:0;padding:6px 12px;border-radius:6px;font-size:.78rem;cursor:pointer;font-weight:700}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.section-title{font-size:1.1rem;font-weight:700;display:flex;justify-content:space-between;align-items:center;margin:6px 0 0}
+.section-title span{font-size:.75rem;color:var(--sky);font-weight:400}
+.course-list{display:flex;flex-direction:column;gap:10px}
+.course-item{background:var(--card);border:1px solid var(--line);padding:12px 14px;border-radius:10px;display:flex;justify-content:space-between;align-items:center;gap:8px;cursor:pointer;width:100%;color:inherit;text-align:right}
+.course-item:hover{border-color:#374151}
+.course-item.on{border-color:var(--blue);background:#101b36}
+.course-info h4{font-size:.9rem;margin-bottom:4px;font-weight:600}
+.pill{font-size:.72rem;padding:2px 8px;border-radius:5px;background:#0b0f19;color:var(--muted)}
+.pill.on{background:var(--blue);color:#fff}.pill.live{background:var(--red);color:#fff}
+.empty{color:var(--muted);font-size:.85rem;text-align:center;padding:14px}
+.msg{font-size:.82rem;text-align:center;padding:9px;border-radius:8px}
+.msg.err{background:#450a0a;color:#fca5a5}.msg.ok{background:#052e16;color:#86efac}
+.live-bar{background:#450a0a;color:#fca5a5;border:1px solid var(--red);border-radius:10px;padding:10px 12px;font-weight:700;font-size:.85rem;cursor:pointer}
+.hidden{display:none!important}
+.tabs{display:flex;background:#0b0f19;border-radius:10px;padding:4px;margin-bottom:12px;gap:4px}
+.tab{flex:1;border:0;background:none;color:var(--muted);padding:9px;border-radius:8px;font-weight:700;font-size:.85rem;cursor:pointer;font-family:inherit}
+.tab.on{background:var(--blue);color:#fff}
+.link{background:none;border:0;color:var(--sky);font-size:.8rem;cursor:pointer;font-family:inherit;margin-top:10px;display:block}
+#app-view{display:flex;flex-direction:column;gap:15px}
+.welcome{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.welcome b{font-size:1rem}.welcome small{color:var(--muted);display:block;font-size:.75rem}
+
+/* ===== التصميم الجديد ===== */
+html,body{overflow-x:hidden}
+body::before,body::after{content:"";position:fixed;border-radius:50%;z-index:-1;pointer-events:none}
+body::before{width:640px;height:640px;top:-320px;left:-270px;background:#1b1a45}
+body::after{width:600px;height:600px;bottom:-340px;left:-230px;background:#0b2744}
+.hero{background:none;border:0;box-shadow:none;flex-direction:column;justify-content:center;text-align:center;gap:0;padding:34px 16px 6px}
+.hero-icon{width:62px;height:62px;border-radius:18px;background:#5b4be0;display:flex;align-items:center;justify-content:center;margin-bottom:18px}
+.hero h1{font-size:clamp(1.55rem,7.2vw,2.3rem);font-weight:700;line-height:1.35}
+.hero-sub{color:var(--sky);font-size:clamp(.88rem,3.6vw,1.05rem);margin-top:8px}
+.hero-pill{margin-top:14px;border:1px solid #4338ca;background:#0d1224;color:var(--ind);padding:6px 18px;border-radius:999px;font-size:.85rem}
+.box,.lecture-card{border-radius:20px;border-color:#1c2433}
+.course-item{border-radius:16px}
+.action-btn{border-radius:14px}
+#landing{display:none;grid-template-columns:1fr 1fr;gap:12px}
+#auth-view:not(.hidden)+#landing{display:grid}
+.feat{background:var(--card);border:1px solid #1c2433;border-radius:20px;padding:16px 14px;display:flex;flex-direction:column;gap:4px}
+.feat i{font-style:normal;width:40px;height:40px;border-radius:12px;color:#fff;font-weight:700;font-size:1.05rem;display:flex;align-items:center;justify-content:center;margin-bottom:8px}
+.feat h4{font-size:1rem;font-weight:700}
+.feat p{color:var(--muted);font-size:.78rem;line-height:1.6}
+.contact{display:flex;align-items:center;justify-content:center;gap:6px;width:fit-content;max-width:100%;margin:4px auto 0;padding:9px 20px;border-radius:999px;background:var(--green-bg);border:1px solid var(--green-bd);color:var(--green);font-weight:700;font-size:.85rem;text-decoration:none}
+.contact:hover{background:#065f46}
+video{width:100%;aspect-ratio:16/9;border-radius:10px;background:#000;display:block}
+
+/* ===== الاشتراكات ===== */
+#content-wrap{display:flex;flex-direction:column;gap:15px}
+#paywall{display:flex;flex-direction:column;gap:12px;text-align:center}
+.pw-icon{font-size:2.6rem;line-height:1}
+#paywall h3{margin:0}
+#pw-text{color:var(--muted);font-size:.88rem;line-height:1.8}
+.pw-pay{background:#0b0f19;border:1px solid var(--line);border-radius:12px;padding:10px;font-size:.85rem;white-space:pre-line}
+.pw-refresh{padding:10px;font-size:.82rem;border-radius:10px}
+.pill.ok{background:var(--green-bg);color:var(--green)}
+.stu .course-info{min-width:0;overflow-wrap:anywhere}
+.stu small{display:block;color:var(--muted);font-size:.72rem;direction:ltr;text-align:right;margin-bottom:4px}
+.stu-btns{display:flex;flex-direction:column;gap:6px;flex:none}
+.stu-btns .btn-pub{width:auto;margin:0;padding:7px 12px;font-size:.78rem}
+
+:root{--bg:#060a14;--card:#0c1427;--line:#1a2a4d;--gold:#ffc83d;--sky:#22d3ee}
+html{scroll-behavior:smooth}
+body{padding-bottom:84px;background:radial-gradient(1200px 600px at 50% -10%,#14275a 0%,#060a14 60%) fixed}
+.hero{text-align:center;padding:18px 14px 6px}
+.hero-card{max-width:440px;margin:0 auto 14px;border-radius:22px;padding:3px;background:linear-gradient(135deg,var(--gold),var(--sky),var(--gold));box-shadow:0 0 38px #ffc83d33,0 0 60px #22d3ee22}
+.hero-card img{display:block;width:100%;height:auto;border-radius:20px}
+.hero h1{font-size:1.7rem;margin:6px 0;background:linear-gradient(90deg,#ffe08a,var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-quote{color:#cbd5e1;font-size:.95rem;margin:10px auto 0;max-width:440px}
+.features{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:640px;margin:14px auto}
+.pf{padding:14px 12px;border:1px solid #22d3ee55;border-radius:16px;background:linear-gradient(160deg,#0c1a36,#08101f);box-shadow:inset 0 0 18px #22d3ee14,0 0 14px #22d3ee14;transition:transform .2s,box-shadow .2s}
+.pf:hover{transform:translateY(-3px);box-shadow:0 0 22px #ffc83d33}
+.pf b{display:block;color:#fff;font-size:.95rem}.pf span{color:var(--gold);font-size:.82rem}
+.badges{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;max-width:640px;margin:6px auto 14px;text-align:center}
+.badges div{font-size:.7rem;color:#94a3b8;padding:8px 4px;border-top:1px solid #1a2a4d}.badges b{display:block;color:var(--gold);font-size:.74rem}
+.bnav{position:fixed;inset:auto 0 0 0;z-index:50;display:flex;justify-content:space-around;padding:8px 6px calc(8px + env(safe-area-inset-bottom));background:#060a14ee;backdrop-filter:blur(10px);border-top:1px solid #1a2a4d}
+.bnav button{flex:1;background:none;border:0;color:#94a3b8;font:inherit;font-size:.74rem;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:4px}
+.bnav button i{font-style:normal;font-size:1.25rem}.bnav button:active,.bnav button:hover{color:var(--gold)}
+#content-wrap{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+.wm{position:absolute;top:0;left:0;z-index:6;pointer-events:none;font-size:.72rem;color:#fff;opacity:.3;text-shadow:0 0 3px #000;white-space:nowrap;direction:ltr;transition:transform 1.4s ease}
+.fsbtn{position:absolute;top:8px;left:8px;z-index:7;background:#000a;color:#fff;border:0;border-radius:8px;padding:6px 10px;font-size:1rem;cursor:pointer}
+#featured-lecture:fullscreen{background:#000;display:flex;flex-direction:column;justify-content:center}
+@media print{body{display:none!important}}
+/* ===== ثيم 2: واجهة ذهبية/سماوية مستوحاة من البوستر (تنسيق فقط) ===== */
+:root{--bg:#050913;--card:#0b1326;--line:#1b2a4e;--text:#f1f5ff;--muted:#8fa3c7;--sky:#22d3ee;--gold:#ffc83d;--gold2:#f5a300}
+body{background:var(--bg);font-feature-settings:"kern"}
+body::before{background:radial-gradient(circle,#ffc83d22,transparent 68%);width:760px;height:760px;top:-380px;left:-300px}
+body::after{background:radial-gradient(circle,#22d3ee1f,transparent 68%);width:760px;height:760px;bottom:-380px;left:-300px}
+.box,.lecture-card,.course-item,.feat,.pf{background:linear-gradient(160deg,#0d1a36e6,#080f20e6);border:1px solid #22d3ee2e;box-shadow:0 8px 28px #00000066,inset 0 0 22px #22d3ee0d;backdrop-filter:blur(6px);animation:rise .5s ease both}
+.box:hover,.lecture-card:hover{border-color:#ffc83d55}
+.course-item{transition:transform .18s,border-color .18s,box-shadow .18s}
+.course-item:hover{transform:translateY(-2px);border-color:#ffc83d66;box-shadow:0 10px 26px #ffc83d1f}
+.course-item.on{border-color:var(--gold);background:linear-gradient(160deg,#17213f,#0b1326)}
+.box h3,.section-title span,.link,.preview-link,.admin-sub{color:var(--gold)}
+.section-title{padding-right:10px;border-right:4px solid var(--gold);border-radius:2px}
+input,select,textarea{background:#060c1c;border:1px solid #1f3160;border-radius:12px;padding:12px;transition:border-color .2s,box-shadow .2s}
+input:focus,select:focus,textarea:focus{border-color:var(--sky);box-shadow:0 0 0 3px #22d3ee22}
+.btn-pub,.btn-exam,.tab.on,.pill.on{background:linear-gradient(135deg,#ffd75e,var(--gold2));color:#1a1200;border-color:transparent}
+.btn-pub{border-radius:14px;padding:14px;box-shadow:0 6px 20px #f5a30040;transition:transform .15s,box-shadow .15s,filter .15s}
+.btn-pub:hover{background:linear-gradient(135deg,#ffe08a,#ffb300);transform:translateY(-1px);box-shadow:0 10px 26px #f5a30055}
+.btn-pub:active,.btn-gray:active,.btn-del:active{transform:scale(.97)}
+.tabs{background:#060c1c;border:1px solid #1b2a4e;border-radius:14px}
+.tab{border-radius:11px}
+.btn-gray{background:#17264a;border:1px solid #2a3d6e;border-radius:10px;padding:7px 12px}
+.btn-del{border-radius:10px;background:linear-gradient(135deg,#ef4444,#b91c1c)}
+.badge{background:#ffc83d1a;color:var(--gold);border-color:#ffc83d4d;border-radius:999px;padding:4px 12px}
+.badge.live{background:#dc262626;color:#fca5a5;border-color:#ef4444}
+.lecture-desc{background:#060c1c;border-color:#1b2a4e;border-radius:12px}
+.action-btn{background:#101c3b;border-color:#2a3d6e;color:#cfe3ff;border-radius:14px;transition:transform .15s,border-color .15s}
+.action-btn:hover{background:#15244a;border-color:var(--sky);transform:translateY(-1px)}
+.btn-wa,a.contact{background:linear-gradient(135deg,#25d366,#128c7e);color:#fff;border-color:transparent;border-radius:14px}
+a.contact{padding:14px;text-align:center;text-decoration:none;font-weight:700;box-shadow:0 6px 20px #25d36633;display:block}
+.pill{background:#060c1c;border:1px solid #1b2a4e}
+.hero-pill{border-color:#ffc83d66;background:#0b1326;color:var(--gold)}
+.hero-sub{color:var(--sky)}
+.bnav{background:#050913f2;border-top:1px solid #22d3ee2e;box-shadow:0 -8px 24px #00000066}
+.bnav button{transition:color .15s,transform .15s}
+.bnav button:active{transform:scale(.92)}
+iframe,video{border-radius:14px}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.box,.lecture-card,.course-item,.feat,.pf{animation:none}.course-item,.btn-pub{transition:none}}
+
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.pf{transition:none}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-card"><img src="hero.jpg" alt="الأستاذ هشام الجيزاوي" width="900" height="900" fetchpriority="high"></div>
+  <h1 id="hero-name">منصة الأستاذ هشام الجيزاوي</h1>
+  <p class="hero-sub" id="hero-sub">لتدريس الفيزياء الحديثة والتطبيقية</p>
+  <span class="hero-pill">الفيزياء للثانوية العامة 2026/2027</span>
+  <p class="hero-quote" id="hero-quote"></p>
+</header>
+
+<main>
+  <section class="features" id="features"></section>
+  <div class="badges" id="badges"></div>
+  <div id="status"></div>
+  <div id="preview-bar"></div>
+
+  <section id="auth-view" class="box hidden">
+    <h3 style="font-size:1.1rem">🎓 أهلاً بك في منصة الأستاذ هشام</h3>
+    <p style="color:var(--muted);font-size:.82rem;margin-bottom:14px">سجّل دخولك للوصول إلى المحاضرات والملازم.</p>
+    <div class="tabs"><button class="tab on" id="tab-signup" type="button">حساب جديد</button><button class="tab" id="tab-login" type="button">لدي حساب بالفعل</button></div>
+    <form id="auth-form">
+      <div class="signup-only"><label for="a-name">الاسم</label><input id="a-name" type="text" autocomplete="name" placeholder="اسمك الثلاثي"></div>
+      <label for="a-email">البريد الإلكتروني</label>
+      <input id="a-email" type="email" required dir="ltr" autocomplete="username" placeholder="name@gmail.com">
+      <label for="a-pass">كلمة المرور</label>
+      <input id="a-pass" type="password" required minlength="6" dir="ltr" placeholder="6 أحرف على الأقل">
+      <div class="signup-only"><label for="a-pass2">تأكيد كلمة المرور</label><input id="a-pass2" type="password" dir="ltr" placeholder="أعد كتابة كلمة المرور"></div>
+      <button class="btn-pub" id="a-submit" type="submit">إنشاء حساب جديد</button>
+      <button class="link login-only hidden" id="a-forgot" type="button">نسيت كلمة المرور؟</button>
+    </form>
+    <form id="otp-form" class="hidden">
+      <p style="color:var(--muted);font-size:.85rem;margin-bottom:12px;line-height:1.7">أرسلنا كود تأكيد من 6 أرقام إلى بريدك <b id="otp-email" dir="ltr"></b>. اكتبه هنا لنتأكد أن الحساب حسابك.<br><span style="font-size:.78rem">لم يصلك؟ تفقّد مجلد الرسائل غير المرغوب فيها (Spam) وانتظر دقيقة.</span></p>
+      <label for="o-code">كود التأكيد</label>
+      <input id="o-code" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="10" dir="ltr" placeholder="123456" required style="text-align:center;letter-spacing:6px;font-size:1.3rem">
+      <button class="btn-pub" id="o-submit" type="submit">تأكيد الحساب</button>
+      <button class="link" id="o-resend" type="button">إعادة إرسال الكود</button>
+      <button class="link" id="o-back" type="button">تغيير البريد الإلكتروني</button>
+    </form>
+  </section>
+
+  <section id="landing" aria-label="مميزات المنصة">
+  <div class="feat"><i style="background:#dc2626">1</i><h4>بث مباشر</h4><p>حصص لايف مع إشعار فوري للطلاب</p></div>
+  <div class="feat"><i style="background:#2563eb">2</i><h4>محاضرات مسجلة</h4><p>شاهد الدرس في أي وقت وبجودة عالية</p></div>
+  <div class="feat"><i style="background:#7c3aed">3</i><h4>ملازم PDF</h4><p>حمّل ملزمة الشرح لكل محاضرة</p></div>
+  <div class="feat"><i style="background:#059669">4</i><h4>سؤال عبر واتساب</h4><p>تواصل مباشر مع المدرس لحل المسائل</p></div>
+  <div class="feat"><i style="background:#2563eb">5</i><h4>حساب شخصي آمن</h4><p>تسجيل دخول واسترجاع كلمة المرور</p></div>
+  <div class="feat"><i style="background:#7c3aed">6</i><h4>يعمل على الموبايل</h4><p>تصميم سريع ومريح على كل الأجهزة</p></div>
+</section>
+
+  <section id="reset-view" class="box hidden">
+    <h3>🔑 كلمة مرور جديدة</h3>
+    <form id="reset-form">
+      <label for="r-pass">كلمة المرور الجديدة</label><input id="r-pass" type="password" required minlength="6" dir="ltr" autocomplete="new-password">
+      <label for="r-pass2">تأكيد كلمة المرور</label><input id="r-pass2" type="password" required dir="ltr" autocomplete="new-password">
+      <button class="btn-pub" type="submit">حفظ كلمة المرور</button>
+    </form>
+  </section>
+
+  <div id="app-view" class="hidden">
+    <div class="box welcome"><div><b id="w-name"></b><small id="w-email"></small><small id="w-sub"></small><small><a href="#" id="user-delete" style="color:#ff8a8a">حذف حسابي نهائياً</a></small></div><button class="btn-gray" id="user-logout" type="button">تسجيل خروج</button></div>
+
+    <div id="admin-panel" class="box hidden">
+      <div class="admin-top">
+        <div>
+          <div class="admin-title">⚙️ لوحة إدارة المحتوى - مستر هشام الجيزاوي</div>
+          <div class="admin-sub">إضافة وتحديث الفيديوهات والبث المباشر والملازم</div>
+        </div>
+        <button class="preview-link" id="preview-btn" type="button">🔗 معاينة المنصة كطالب ↗</button>
+      </div>
+      <h3>➕ نشر محتوى جديد</h3>
+      <form id="content-form">
+        <label for="c-type">نوع المحتوى</label>
+        <select id="c-type">
+          <option value="lecture">🎬 فيديو محاضرة مسجل</option>
+          <option value="live">🔴 بث مباشر الآن</option>
+        </select>
+        <label for="c-title">عنوان المحاضرة / البث</label>
+        <input type="text" id="c-title" placeholder="مثال: المحاضرة 5 - الحث الكهرومغناطيسي" required>
+        <label for="c-video">رابط الفيديو المباشر (mp4 / m3u8) أو معرّف يوتيوب</label>
+        <input type="text" id="c-video" placeholder="https://.../lecture.mp4  أو  معرّف يوتيوب"  required dir="ltr">
+        <label for="c-file">أو ارفع فيديو إلى مخزن المنصة (mp4)</label>
+        <input type="file" id="c-file" accept="video/mp4,video/webm">
+        <button type="button" class="btn-gray" id="c-up" style="width:100%;margin:6px 0">⬆️ رفع الفيديو</button>
+        <div id="c-up-st" style="font-size:.85rem;color:var(--muted);margin-bottom:8px"></div>
+        <label for="c-desc">وصف المحاضرة والتفاصيل</label>
+        <textarea id="c-desc" placeholder="اكتب أهم النقاط والملاحظات الخاصة بهذا الدرس..." rows="3"></textarea>
+        <label for="c-pdf">رابط ملزمة الشرح (PDF) - اختياري</label>
+        <input type="url" id="c-pdf" placeholder="https://drive.google.com/file/d/..." dir="ltr">
+        <button type="submit" class="btn-pub" id="pub-btn">🚀 نشر فوراً على المنصة</button>
+      </form>
+      <h3 style="margin-top:18px">📚 الدروس والمحاضرات المنشورة</h3>
+      <div id="admin-list"></div>
+      <h3 style="margin-top:18px">👥 اشتراكات الطلاب</h3>
+      <input type="search" id="stu-q" placeholder="ابحث بالاسم أو البريد..." autocomplete="off">
+      <div id="stu-list"></div>
+      <h3 style="margin-top:18px">👑 المشرفون</h3>
+      <div id="adm-list"></div>
+      <input type="email" id="adm-email" placeholder="إيميل المشرف الجديد" dir="ltr" autocomplete="off">
+      <button class="btn-pub" id="adm-add" type="button" style="margin-top:8px">إضافة مشرف</button>
+      <h3 style="margin-top:18px">⚙️ إعدادات المنصة</h3>
+      <label for="s-name">اسم المنصة</label><input id="s-name">
+      <label for="s-sub">وصف قصير</label><input id="s-sub">
+      <label for="s-quote">العبارة التحفيزية</label><input id="s-quote">
+      <label for="s-wa">رقم واتساب (دولي بدون +، مثل 201065450289)</label><input id="s-wa" dir="ltr" inputmode="numeric">
+      <label for="s-feat">المميزات (كل سطر: العنوان | الوصف)</label><textarea id="s-feat" rows="6"></textarea>
+      <label for="s-badges">شارات الثقة (كل سطر: العنوان | الوصف)</label><textarea id="s-badges" rows="4"></textarea>
+      <button class="btn-pub" id="s-save" type="button" style="margin-top:8px">حفظ الإعدادات</button>
+    </div>
+
+    <section id="paywall" class="box hidden">
+      <div class="pw-icon" aria-hidden="true">🔒</div>
+      <h3 id="pw-title">المحتوى للمشتركين فقط</h3>
+      <p id="pw-text"></p>
+      <div id="pw-pay" class="pw-pay hidden"></div>
+      <a id="pw-wa" class="action-btn btn-wa" href="#" target="_blank" rel="noopener">💬 اشترك الآن عبر واتساب</a>
+      <button class="btn-gray pw-refresh" id="pw-refresh" type="button">🔄 دفعت؟ اضغط لتحديث حالة اشتراكك</button>
+    </section>
+
+    <div id="content-wrap">
+      <div id="live-slot"></div>
+      <div id="featured-lecture" class="lecture-card"><p class="empty">جاري التحميل...</p></div>
+
+      <h3 class="section-title">📚 محاضرات الكورس <span>الفيزياء 2026/2027</span></h3>
+      <div id="courses-list" class="course-list"></div>
+    </div>
+  </div>
+  <a class="contact" href="https://wa.me/201065450289" target="_blank" rel="noopener">💬 للحجز والاستفسار عن السعر</a>
+  <p style="text-align:center;font-size:.72rem;opacity:.55;margin-top:14px">إصدار 17-10 · تصميم جديد</p>
+</main>
+<nav class="bnav" aria-label="التنقل"><button type="button" data-go="home"><i>🏠</i>الرئيسية</button><button type="button" data-go="lectures"><i>🎬</i>المحاضرات</button><button type="button" data-go="account"><i>👤</i>حسابي</button></nav>
+
+<script>
+const SUPABASE_URL = 'https://qxkwlijxvzfagltjgyen.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_exXi4eqMhwYyK9SpupCptw_DGr0VLlj';
+const TABLE = 'platform_content';
+let WA = 'https://wa.me/201065450289';
+const ADMIN_EMAIL = 'elprensm129@gmail.com';
+const EXAM_URL = '';
+const VIDEO_API = 'https://physify-video.aljizawi.workers.dev'; // رابط Worker الفيديو
+// اكتب هنا السعر وطريقة الدفع لتظهر للطالب في شاشة الاشتراك (اتركها فارغة ليتفق معك على واتساب)
+// مثال: 'الاشتراك الشهري: 200 جنيه\nفودافون كاش: 01xxxxxxxxx'
+const PAY_TEXT = '';
+const SUB_DAYS = 30;
+
+let db = null, items = [], isAdmin = false, preview = false, current = null;
+let mode = 'signup', uid = null, recovering = false, flashT = null;
+let subscribed = false, activeUntil = null, userEmail = '', students = [], stuAll = false;
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const safeUrl = u => /^https?:\/\//i.test(String(u || '').trim()) ? String(u).trim() : '';
+const showAdmin = () => isAdmin && !preview;
+const back = () => location.origin + location.pathname;
+
+function ytId(v) {
+  v = String(v || '').trim();
+  const m = v.match(/(?:v=|youtu\.be\/|embed\/|live\/|shorts\/)([A-Za-z0-9_-]{11})/);
+  if (m) return m[1];
+  return /^[A-Za-z0-9_-]{11}$/.test(v) ? v : '';
+}
+
+const isDirect = u => /^https?:\/\/\S+\.(mp4|webm|m3u8)(\?\S*)?$/i.test(String(u || '').trim());
+
+const isR2 = u => /^r2:v\/[\w.-]+\.(mp4|webm)$/i.test(String(u || '').trim());
+
+function videoTag(url) {
+  const hls = /\.m3u8/i.test(url);
+  return `<video id="vid" controls controlsList="nodownload" playsinline preload="metadata" oncontextmenu="return false"${hls ? '' : ` src="${esc(url)}"`}></video>`;
+}
+
+function attachVideo(url) {
+  const v = $('vid');
+  if (!v || !/\.m3u8/i.test(url)) return;
+  const dbg = t => { const d = $('vid-dbg'); if (d) d.textContent = t; }; // سطر تشخيص للمشرف فقط (يمكن حذفه لاحقاً)
+  const canNative = !!v.canPlayType('application/vnd.apple.mpegurl');
+  dbg('v3 | loading... | ' + url);
+  v.addEventListener('loadedmetadata', () => dbg('v3 | OK | ' + url));
+  v.addEventListener('error', () => dbg('v3 | video error code ' + (v.error ? v.error.code : '?') + ' | ' + url));
+  const go = () => {
+    if (window.Hls && Hls.isSupported()) {
+      const h = new Hls();
+      h.on(Hls.Events.ERROR, (_, d) => {
+        if (d.fatal) {
+          dbg('v3 | hls fatal: ' + d.type + ' / ' + d.details + ' / http ' + (d.response ? d.response.code : '-') + ' | ' + url);
+          flash('تعذّر تشغيل الفيديو: ' + d.details);
+        }
+      });
+      h.loadSource(url);
+      h.attachMedia(v);
+    } else if (canNative) { v.src = url; }
+    else { dbg('v3 | no hls support'); flash('المتصفح لا يدعم تشغيل هذا الفيديو'); }
+  };
+  if (window.Hls) return go();
+  const sc = document.createElement('script');
+  sc.src = 'https://cdn.jsdelivr.net/npm/hls.js@1.5.17/dist/hls.min.js';
+  sc.onload = go;
+  sc.onerror = () => { dbg('v3 | hls.js failed to load'); if (canNative) v.src = url; else flash('تعذّر تحميل مشغّل الفيديو'); };
+  document.head.appendChild(sc);
+}
+
+function flash(text, type = 'err') {
+  clearTimeout(flashT);
+  $('status').innerHTML = text ? `<div class="msg ${type}" role="alert">${esc(text)}</div>` : '';
+  if (text) flashT = setTimeout(() => { $('status').innerHTML = ''; }, 7000);
+}
+
+const arErr = m => {
+  m = String(m || '');
+  if (/Invalid login/i.test(m)) return 'البريد أو كلمة المرور غير صحيحة';
+  if (/not confirmed/i.test(m)) return 'لم يتم تأكيد بريدك بعد، اكتب الكود الذي وصلك';
+  if (/expired|invalid/i.test(m) && /token|otp|code/i.test(m)) return 'الكود غير صحيح أو انتهت صلاحيته';
+  if (/only request this after/i.test(m)) return 'انتظر دقيقة ثم اطلب كوداً جديداً';
+  if (/email rate limit/i.test(m)) return 'تم الوصول لحد الرسائل مؤقتاً، حاول بعد قليل';
+  if (/already registered/i.test(m)) return 'هذا البريد مسجل بالفعل، اختر "لدي حساب بالفعل"';
+  if (/rate limit/i.test(m)) return 'محاولات كثيرة، انتظر قليلاً ثم أعد المحاولة';
+  if (/at least 6/i.test(m)) return 'كلمة المرور يجب ألا تقل عن 6 أحرف';
+  if (/Signups not allowed/i.test(m)) return 'التسجيل الجديد مغلق. فعّل Allow new users to sign up في Supabase';
+  if (/Failed to fetch|NetworkError|Load failed/i.test(m)) return 'تعذّر الاتصال بالخادم. افتح الموقع من رابط حقيقي (وليس من المعاينة) وتأكد من الإنترنت';
+  return m;
+};
+
+function setMode(m) {
+  mode = m;
+  document.querySelectorAll('.signup-only').forEach(el => el.classList.toggle('hidden', m !== 'signup'));
+  document.querySelectorAll('.login-only').forEach(el => el.classList.toggle('hidden', m !== 'login'));
+  $('tab-signup').classList.toggle('on', m === 'signup');
+  $('tab-login').classList.toggle('on', m === 'login');
+  $('a-submit').textContent = m === 'signup' ? 'إنشاء حساب جديد' : 'دخول';
+  $('a-pass').autocomplete = m === 'signup' ? 'new-password' : 'current-password';
+  $('a-name').required = $('a-pass2').required = (m === 'signup');
+}
+
+let pendingEmail = '', resendT = null;
+const toAscii = v => String(v || '').replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d)).replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)).replace(/\D/g, '');
+
+function setOtp(on, email) {
+  pendingEmail = on ? email : '';
+  $('otp-form').classList.toggle('hidden', !on);
+  $('auth-form').classList.toggle('hidden', on);
+  $('auth-view').querySelector('.tabs').classList.toggle('hidden', on);
+  clearInterval(resendT);
+  if (on) {
+    $('otp-email').textContent = email;
+    $('o-code').value = '';
+    cooldown(60);
+    setTimeout(() => $('o-code').focus(), 50);
+  } else {
+    $('o-resend').disabled = false;
+    $('o-resend').textContent = 'إعادة إرسال الكود';
+  }
+}
+
+function cooldown(sec) {
+  const b = $('o-resend');
+  let left = sec;
+  clearInterval(resendT);
+  b.disabled = true;
+  const tick = () => {
+    if (left <= 0) { clearInterval(resendT); b.disabled = false; b.textContent = 'إعادة إرسال الكود'; return; }
+    b.textContent = 'إعادة إرسال الكود (' + left-- + ')';
+  };
+  tick();
+  resendT = setInterval(tick, 1000);
+}
+
+function applySession(s) {
+  if (recovering) return;
+  const u = s ? s.user : null;
+  uid = u ? u.id : null;
+  isAdmin = !!u && String(u.email).toLowerCase() === ADMIN_EMAIL;
+  preview = false;
+  $('preview-bar').innerHTML = '';
+  $('reset-view').classList.add('hidden');
+  $('auth-view').classList.toggle('hidden', !!u);
+  $('app-view').classList.toggle('hidden', !u);
+  if (!u) { setOtp(false); items = []; current = null; subscribed = false; activeUntil = null; students = []; stuAll = false; userEmail = ''; return; }
+  userEmail = u.email || '';
+  const md = u.user_metadata || {};
+  $('w-name').textContent = 'أهلاً بك يا ' + (md.full_name || md.name || String(u.email).split('@')[0]) + ' 👋';
+  $('w-email').textContent = (isAdmin ? 'حساب المشرف · ' : '') + u.email;
+  $('user-delete').classList.toggle('hidden', isAdmin);
+  loadAccess();
+}
+
+function showReset() {
+  recovering = true;
+  $('auth-view').classList.add('hidden');
+  $('app-view').classList.add('hidden');
+  $('reset-view').classList.remove('hidden');
+}
+
+window.addEventListener('unhandledrejection', e => flash(arErr(e.reason && e.reason.message ? e.reason.message : e.reason)));
+
+async function init() {
+  setMode('signup');
+  if (!/^https?:$/.test(location.protocol))
+    $('status').innerHTML = '<div class="msg err">أنت تفتح الصفحة من معاينة أو ملف محلي، فلن يعمل تسجيل الدخول هنا. افتح الموقع من رابط حقيقي (Netlify أو CodePen).</div>';
+
+  if (!window.supabase) {
+    $('auth-view').classList.remove('hidden');
+    flash('تعذّر تحميل المنصة. تأكد من الإنترنت ثم أعد فتح الصفحة.');
+    return;
+  }
+
+  db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  // نسجّل المستمع قبل getSession حتى لا يضيع حدث استعادة كلمة المرور
+  db.auth.onAuthStateChange((ev, s) => {
+    setTimeout(() => {
+      if (ev === 'PASSWORD_RECOVERY') return showReset();
+      if (ev === 'SIGNED_OUT') return applySession(null);
+      if (ev === 'SIGNED_IN' && s && s.user.id !== uid) applySession(s);
+    }, 0);
+  });
+
+  const { data } = await db.auth.getSession();
+  if (!uid) applySession(data.session);
+}
+
+async function loadData() {
+  const { data, error } = await db.from(TABLE).select('*').order('created_at', { ascending: false });
+  if (error) {
+    flash('تعذّر تحميل المحاضرات: ' + error.message);
+    items = [];
+  } else {
+    items = data || [];
+  }
+  current = items.find(i => i.content_type === 'live') || items[0] || null;
+  render();
+}
+
+function render() {
+  $('admin-panel').classList.toggle('hidden', !showAdmin());
+  $('preview-bar').innerHTML = (isAdmin && preview)
+    ? '<div class="msg ok">أنت تشاهد المنصة كما يراها الطالب. <button class="preview-link" data-act="unpreview" type="button">العودة للوحة الإدارة</button></div>'
+    : '';
+  renderLive();
+  renderFeatured();
+  renderList();
+  renderAdminList();
+}
+
+function renderLive() {
+  const live = items.find(i => i.content_type === 'live');
+  $('live-slot').innerHTML = live
+    ? `<div class="live-bar" data-act="golive" role="button" tabindex="0">🔴 بث مباشر الآن: ${esc(live.title)} — اضغط للمشاهدة</div>`
+    : '';
+}
+
+function renderFeatured() {
+  const box = $('featured-lecture');
+  if (!current) {
+    box.innerHTML = `<div class="badge">الفيزياء للثانوية العامة</div><div class="lecture-title">لا توجد محاضرات منشورة بعد</div>
+      <a href="${WA}" target="_blank" rel="noopener" class="action-btn btn-wa">💬 اسأل مسألة هشام الجيزاوي</a>`;
+    return;
+  }
+  const it = current;
+  const r2 = isR2(it.content_url);
+  const direct = !r2 && isDirect(it.content_url);
+  const id = (direct || r2) ? '' : ytId(it.content_url);
+  const live = it.content_type === 'live';
+  const idx = items.indexOf(it);
+  const pdf = safeUrl(it.pdf_url);
+  const src = `https://www.youtube-nocookie.com/embed/${id}?rel=0&modestbranding=1&iv_load_policy=3&playsinline=1${live ? '&autoplay=1&mute=1' : ''}`;
+
+  box.innerHTML = `
+    ${r2 ? '<video id="vid" controls controlsList="nodownload" playsinline preload="metadata" oncontextmenu="return false"></video>' : direct ? videoTag(it.content_url) : id ? `<iframe src="${src}" title="${esc(it.title)}" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`
+         : '<div class="msg err">رابط الفيديو غير صالح</div>'}
+    ${direct && showAdmin() ? '<div id="vid-dbg" style="font-size:12px;direction:ltr;word-break:break-all;color:#9fb3c8;margin:8px 0"></div>' : ''}
+    <div class="badge ${live ? 'live' : ''}">${live ? '🔴 بث مباشر' : 'الفيزياء للثانوية العامة'}</div>
+    <div class="lecture-title">${esc(it.title)}</div>
+    <div class="lecture-desc">${esc(it.content_desc) || 'شرح تفصيلي للمنهج مع مستر هشام الجيزاوي.'}</div>
+    ${EXAM_URL ? `<a href="${esc(EXAM_URL)}" target="_blank" rel="noopener" class="action-btn btn-exam">📝 ابدأ امتحان الفيزياء</a>` : ''}
+    ${pdf ? `<a href="${esc(pdf)}" target="_blank" rel="noopener" class="action-btn">📄 تحميل ملزمة المحاضرة (PDF)</a>` : ''}
+    <a href="${WA}" target="_blank" rel="noopener" class="action-btn btn-wa">💬 اسأل مسألة هشام الجيزاوي</a>
+    ${showAdmin() ? `<div class="row">
+      ${live ? `<button class="btn-gray" data-act="endlive" data-i="${idx}" type="button">⏹ إنهاء البث وحفظه كمحاضرة</button>` : ''}
+      <button class="btn-del" data-act="del" data-i="${idx}" type="button">🗑️ حذف هذه المحاضرة</button>
+    </div>` : ''}`;
+  if (direct) attachVideo(it.content_url);
+  if (r2) loadR2(it.content_url);
+}
+
+function renderList() {
+  const n = items.length;
+  $('courses-list').innerHTML = n
+    ? items.slice().reverse().map((it, k) => {
+        const i = n - 1 - k;
+        const live = it.content_type === 'live';
+        const on = it === current;
+        const pill = live ? '<span class="pill live">بث مباشر</span>'
+          : on ? '<span class="pill on">جاري المشاهدة</span>'
+          : '<span class="pill">جاهز</span>';
+        return `<div class="course-item ${on ? 'on' : ''}" data-act="watch" data-i="${i}" role="button" tabindex="0">
+          <div class="course-info"><h4>${k + 1}. ${esc(it.title)}</h4></div>${pill}</div>`;
+      }).join('')
+    : '<p class="empty">لا توجد محاضرات إضافية مسجلة حالياً.</p>';
+}
+
+function renderAdminList() {
+  $('admin-list').innerHTML = items.length
+    ? items.map((it, i) => `
+      <div class="course-item" style="cursor:default;margin-bottom:8px">
+        <div class="course-info">
+          <h4>${esc(it.title)}</h4>
+          <span class="pill ${it.content_type === 'live' ? 'live' : ''}">${it.content_type === 'live' ? 'بث مباشر' : 'محاضرة'}</span>
+        </div>
+        <button class="btn-del" data-act="del" data-i="${i}" type="button">حذف</button>
+      </div>`).join('')
+    : '<p class="empty">لا يوجد محتوى منشور حالياً.</p>';
+}
+
+
+const fmtDate = d => new Date(d).toLocaleDateString('ar-EG', { year: 'numeric', month: 'long', day: 'numeric' });
+
+async function loadProfile() {
+  activeUntil = null;
+  subscribed = false;
+  if (isAdmin) { subscribed = true; return; }
+  const { data, error } = await db.from('profiles').select('active_until').eq('id', uid).maybeSingle();
+  if (error) { flash('تعذّر التحقق من اشتراكك: ' + arErr(error.message)); return; }
+  activeUntil = data && data.active_until ? new Date(data.active_until) : null;
+  subscribed = !!activeUntil && activeUntil > new Date();
+}
+
+async function loadAccess() {
+  try {
+    const r = await db.rpc('is_admin');
+    if (r && !r.error && typeof r.data === 'boolean' && r.data !== isAdmin) { isAdmin = r.data; $('w-email').textContent = (isAdmin ? 'حساب المشرف · ' : '') + userEmail; }
+  } catch (e) {}
+  $('user-delete').classList.toggle('hidden', isAdmin);
+  await loadProfile();
+  renderAccess();
+  if (subscribed) await loadData(); else { items = []; current = null; }
+  if (isAdmin) loadStudents();
+}
+
+function renderAccess() {
+  $('paywall').classList.toggle('hidden', subscribed);
+  $('content-wrap').classList.toggle('hidden', !subscribed);
+  $('w-sub').textContent = (!isAdmin && subscribed && activeUntil) ? 'اشتراكك ساري حتى ' + fmtDate(activeUntil) : '';
+  if (subscribed) return;
+  // نفرّغ المحتوى حتى يتوقف أي فيديو شغّال عند انتهاء الاشتراك
+  ['live-slot', 'featured-lecture', 'courses-list'].forEach(id => { $(id).innerHTML = ''; });
+  const expired = !!activeUntil;
+  $('pw-title').textContent = expired ? 'انتهى اشتراكك' : 'المحتوى للمشتركين فقط';
+  $('pw-text').textContent = expired
+    ? 'انتهى اشتراكك في ' + fmtDate(activeUntil) + '. جدّد اشتراكك لتكمل المشاهدة.'
+    : 'حسابك جاهز، ولم يتبقَّ إلا تفعيل الاشتراك الشهري لتشاهد المحاضرات.';
+  $('pw-pay').textContent = PAY_TEXT;
+  $('pw-pay').classList.toggle('hidden', !PAY_TEXT);
+  $('pw-wa').href = WA + '?text=' + encodeURIComponent('السلام عليكم، أريد الاشتراك الشهري في منصة الأستاذ هشام الجيزاوي. بريدي: ' + userEmail);
+}
+
+$('pw-refresh').onclick = async () => {
+  const b = $('pw-refresh');
+  b.disabled = true;
+  await loadAccess();
+  b.disabled = false;
+  if (subscribed) flash('تم تفعيل اشتراكك، مشاهدة ممتعة 🎉', 'ok');
+  else flash('لم يتم تفعيل اشتراكك بعد. أرسل صورة التحويل على واتساب.');
+};
+
+// عند انتهاء الاشتراك أثناء فتح الصفحة تظهر شاشة الاشتراك
+setInterval(() => {
+  if (uid && !isAdmin && subscribed && activeUntil && activeUntil <= new Date()) loadAccess();
+}, 60000);
+
+async function loadStudents() {
+  const { data, error } = await db.from('profiles')
+    .select('id,email,full_name,active_until,created_at')
+    .order('created_at', { ascending: false });
+  if (error) {
+    $('stu-list').innerHTML = `<div class="msg err">تعذّر تحميل الطلاب: ${esc(error.message)}<br>نفّذ ملف subscriptions.sql في Supabase أولاً.</div>`;
+    return;
+  }
+  await loadAdmins();
+  students = (data || []).filter(x => !adminEmails.includes(String(x.email || '').toLowerCase()));
+  renderStudents();
+}
+
+const OWNERS = ['elprensm129@gmail.com', 'elgizawi75@gmail.com'];
+let adminEmails = [ADMIN_EMAIL];
+async function loadAdmins() {
+  try {
+    const { data, error } = await db.rpc('list_admins');
+    if (!error && Array.isArray(data) && data.length) adminEmails = data.map(v => String(v).toLowerCase());
+  } catch (e) {}
+  $('adm-list').innerHTML = adminEmails.map(m => `<div class="course-item stu" style="cursor:default;margin-bottom:8px"><div class="course-info"><small dir="ltr">${esc(m)}</small></div><div class="stu-btns">${(m === userEmail.toLowerCase() || OWNERS.includes(m)) ? `<span class="pill ok">${OWNERS.includes(m) ? (m === userEmail.toLowerCase() ? 'مالك · أنت' : 'مالك') : 'أنت'}</span>` : `<button class="btn-gray" data-act="adm-del" data-e="${esc(m)}" type="button">إزالة</button>`}</div></div>`).join('');
+}
+async function deleteStudent(id) {
+  const x = students.find(v => v.id === id);
+  if (!confirm('حذف حساب ' + (x ? (x.full_name || x.email) : 'الطالب') + ' نهائياً؟ سيُخرج من المنصة ويُحذف حسابه واشتراكه، ويمكنه التسجيل من جديد.')) return;
+  const { error } = await db.rpc('delete_student', { p_user: id });
+  if (error) return flash('فشل الحذف: ' + arErr(error.message));
+  students = students.filter(v => v.id !== id);
+  renderStudents();
+  flash('تم حذف الحساب', 'ok');
+}
+function renderStudents() {
+  const q = $('stu-q').value.trim().toLowerCase();
+  const all = students.filter(x => !q || (x.email || '').toLowerCase().includes(q) || (x.full_name || '').toLowerCase().includes(q));
+  const searching = !!q;
+  const list = (searching || stuAll) ? all : all.slice(0, 3);
+  const now = new Date();
+  $('stu-list').innerHTML = list.length
+    ? list.map(x => {
+        const d = x.active_until ? new Date(x.active_until) : null;
+        const on = d && d > now;
+        const pill = on ? `<span class="pill ok">فعّال حتى ${esc(fmtDate(d))}</span>`
+          : d ? `<span class="pill live">منتهي منذ ${esc(fmtDate(d))}</span>`
+          : '<span class="pill">غير مفعّل</span>';
+        return `<div class="course-item stu" style="cursor:default;margin-bottom:8px">
+          <div class="course-info"><h4>${esc(x.full_name || 'بدون اسم')}</h4><small>${esc(x.email)}</small>${pill}</div>
+          <div class="stu-btns">
+            <button class="btn-pub" data-act="activate" data-u="${esc(x.id)}" type="button">تفعيل ${SUB_DAYS} يوم</button>
+            <button class="btn-gray" data-act="del-stu" data-u="${esc(x.id)}" type="button" style="color:#ff8a8a">🗑 حذف الحساب</button>
+            ${d ? `<button class="btn-gray" data-act="deactivate" data-u="${esc(x.id)}" type="button">إلغاء الاشتراك</button>` : ''}
+          </div>
+        </div>`;
+      }).join('') + (!searching && all.length > 3 ? `<button class="btn-gray" data-act="stu-toggle" type="button" style="width:100%;padding:11px;font-size:.88rem;margin-top:2px">${stuAll ? 'إخفاء' : 'عرض الكل (' + all.length + ')'}</button>` : '')
+    : '<p class="empty">لا يوجد طلاب مطابقون.</p>';
+}
+
+$('stu-q').addEventListener('input', renderStudents);
+
+async function activateStudent(id, btn) {
+  btn.disabled = true;
+  const { data, error } = await db.rpc('activate_student', { p_user: id, p_days: SUB_DAYS });
+  btn.disabled = false;
+  if (error) return flash('فشل التفعيل: ' + error.message);
+  const x = students.find(v => v.id === id);
+  if (x) x.active_until = data;
+  renderStudents();
+  flash('تم تفعيل الاشتراك لمدة ' + SUB_DAYS + ' يوماً', 'ok');
+}
+
+async function deactivateStudent(id) {
+  if (!confirm('إلغاء اشتراك هذا الطالب الآن؟')) return;
+  const { data, error } = await db.from('profiles').update({ active_until: null }).eq('id', id).select();
+  if (error || !data || !data.length) return flash('فشل الإلغاء: ' + (error ? error.message : 'الصلاحيات'));
+  const x = students.find(v => v.id === id);
+  if (x) x.active_until = null;
+  renderStudents();
+  flash('تم إلغاء الاشتراك', 'ok');
+}
+
+document.addEventListener('click', async e => {
+  const t = e.target.closest('[data-act]');
+  if (!t) return;
+  const act = t.dataset.act;
+  const it = items[+t.dataset.i];
+
+  if (act === 'watch' && it) { current = it; render(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+  if (act === 'golive') { current = items.find(i => i.content_type === 'live'); render(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+  if (act === 'unpreview') { preview = false; render(); }
+  if (act === 'del' && it) await removeItem(it);
+  if (act === 'endlive' && it) await endLive(it);
+  if (act === 'activate') await activateStudent(t.dataset.u, t);
+  if (act === 'deactivate') await deactivateStudent(t.dataset.u);
+  if (act === 'stu-toggle') { stuAll = !stuAll; renderStudents(); }
+  if (act === 'del-stu') await deleteStudent(t.dataset.u);
+  if (act === 'adm-del') {
+    if (OWNERS.includes(t.dataset.e)) return;
+    if (!confirm('إزالة هذا المشرف؟')) return;
+    const { error } = await db.rpc('remove_admin', { p_email: t.dataset.e });
+    if (error) return flash('فشلت الإزالة: ' + arErr(error.message));
+    adminEmails = adminEmails.filter(v => v !== t.dataset.e);
+    loadStudents();
+    flash('تمت إزالة المشرف', 'ok');
+  }
+});
+
+document.addEventListener('keydown', e => {
+  if ((e.key === 'Enter' || e.key === ' ') && e.target.matches('[role=button]')) {
+    e.preventDefault();
+    e.target.click();
+  }
+});
+
+$('preview-btn').onclick = () => { preview = true; render(); window.scrollTo({ top: 0, behavior: 'smooth' }); };
+
+async function removeItem(it) {
+  if (!confirm('هل أنت متأكد من حذف هذه المحاضرة نهائياً؟')) return;
+  const { data, error } = await db.from(TABLE).delete().eq('id', it.id).select();
+  if (error) return flash('فشل الحذف: ' + error.message);
+  if (!data || !data.length) return flash('لم يتم الحذف: الصلاحيات تمنع ذلك. سجّل الدخول بحساب المشرف.');
+  flash('تم الحذف', 'ok');
+  loadData();
+}
+
+async function endLive(it) {
+  const { data, error } = await db.from(TABLE).update({ content_type: 'lecture' }).eq('id', it.id).select();
+  if (error || !data || !data.length) return flash('فشل إنهاء البث: ' + (error ? error.message : 'الصلاحيات'));
+  flash('تم إنهاء البث وحفظه كمحاضرة', 'ok');
+  loadData();
+}
+
+async function loadR2(u) {
+  const v = $('vid');
+  if (!VIDEO_API) return flash('لم يُضبط رابط خادم الفيديو بعد');
+  try {
+    const { data } = await db.auth.getSession();
+    const r = await fetch(VIDEO_API + '/api/play?key=' + encodeURIComponent(u.slice(3)), { headers: { Authorization: 'Bearer ' + (data.session ? data.session.access_token : '') } });
+    const j = await r.json();
+    if (!r.ok) throw new Error(j.error || r.status);
+    if (v) v.src = j.url;
+  } catch (e) { flash('تعذّر تشغيل الفيديو: ' + (e.message || e)); }
+}
+
+$('c-up').onclick = async () => {
+  const f = $('c-file').files[0], st = $('c-up-st');
+  if (!f) return flash('اختر ملف الفيديو أولاً');
+  if (!VIDEO_API) return flash('لم يُضبط رابط خادم الفيديو بعد');
+  const PART = 20 * 1024 * 1024, total = Math.ceil(f.size / PART), parts = [];
+  const H = async () => ({ Authorization: 'Bearer ' + (await db.auth.getSession()).data.session.access_token });
+  const q = (k, i) => `key=${encodeURIComponent(k)}&id=${encodeURIComponent(i)}`;
+  let key, id;
+  $('c-up').disabled = true;
+  try {
+    const s = await (await fetch(VIDEO_API + '/api/up/start?name=' + encodeURIComponent(f.name), { method: 'POST', headers: await H() })).json();
+    if (!s.key) throw new Error(s.error || 'start');
+    key = s.key; id = s.uploadId;
+    for (let n = 1; n <= total; n++) {
+      let ok = null;
+      for (let t = 0; t < 4 && !ok; t++) {
+        try {
+          const r = await fetch(`${VIDEO_API}/api/up/part?${q(key, id)}&n=${n}`, { method: 'PUT', headers: await H(), body: f.slice((n - 1) * PART, n * PART) });
+          const j = await r.json();
+          if (r.ok && j.etag) ok = j;
+        } catch (e) {}
+        if (!ok) await new Promise(r => setTimeout(r, 1500 * (t + 1)));
+      }
+      if (!ok) throw new Error('فشل رفع الجزء ' + n);
+      parts.push({ partNumber: ok.partNumber, etag: ok.etag });
+      st.textContent = 'جاري الرفع... ' + Math.round(n / total * 100) + '%';
+    }
+    const d = await (await fetch(`${VIDEO_API}/api/up/done?${q(key, id)}`, { method: 'POST', headers: { ...(await H()), 'Content-Type': 'application/json' }, body: JSON.stringify({ parts }) })).json();
+    if (!d.ok) throw new Error(d.error || 'done');
+    $('c-video').value = 'r2:' + key;
+    st.textContent = '✅ تم الرفع. اكتب العنوان واضغط نشر.';
+  } catch (e) {
+    st.textContent = 'فشل الرفع: ' + (e.message || e);
+    if (key) fetch(`${VIDEO_API}/api/up/abort?${q(key, id)}`, { method: 'POST', headers: await H() }).catch(() => {});
+  } finally { $('c-up').disabled = false; }
+};
+
+$('content-form').addEventListener('submit', async e => {
+  e.preventDefault();
+  const form = e.target;
+  const raw = $('c-video').value.trim();
+  const id = (isDirect(raw) || isR2(raw)) ? raw : ytId(raw);
+  if (!id) return flash('رابط الفيديو غير صالح (يجب أن ينتهي بـ mp4 أو m3u8، أو معرّف يوتيوب)');
+  const pdf = $('c-pdf').value.trim();
+  if (pdf && !safeUrl(pdf)) return flash('رابط الملزمة يجب أن يبدأ بـ https://');
+
+  const btn = $('pub-btn');
+  btn.disabled = true;
+  btn.textContent = 'جاري النشر...';
+
+  const row = {
+    title: $('c-title').value.trim(),
+    content_url: id,
+    content_desc: $('c-desc').value.trim(),
+    content_type: $('c-type').value
+  };
+  if (pdf) row.pdf_url = pdf;
+
+  try {
+    const { data, error } = await db.from(TABLE).insert([row]).select();
+    if (error) {
+      if (/pdf_url/.test(error.message))
+        return flash('لحفظ الملزمة نفّذ في Supabase: alter table platform_content add column pdf_url text;');
+      return flash('خطأ في النشر: ' + error.message);
+    }
+    // بث واحد فقط: أي بث قديم يتحول تلقائياً إلى محاضرة
+    if (row.content_type === 'live' && data && data[0]) {
+      await db.from(TABLE).update({ content_type: 'lecture' }).eq('content_type', 'live').neq('id', data[0].id);
+    }
+    flash('تم نشر المحتوى بنجاح على المنصة', 'ok');
+    form.reset();
+    loadData();
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '🚀 نشر فوراً على المنصة';
+  }
+});
+
+$('tab-signup').onclick = () => setMode('signup');
+$('tab-login').onclick = () => setMode('login');
+
+$('a-forgot').onclick = async () => {
+  const email = $('a-email').value.trim();
+  if (!email) return flash('اكتب بريدك الإلكتروني أولاً ثم اضغط "نسيت كلمة المرور"');
+  const { error } = await db.auth.resetPasswordForEmail(email, { redirectTo: back() });
+  flash(error ? arErr(error.message) : 'أرسلنا رابط تغيير كلمة المرور إلى بريدك', error ? 'err' : 'ok');
+};
+
+$('auth-form').addEventListener('submit', async e => {
+  e.preventDefault();
+  if (!db) return flash('تعذّر تحميل المنصة. أعد فتح الصفحة.');
+  const email = $('a-email').value.trim();
+  const p1 = $('a-pass').value;
+  const btn = $('a-submit');
+
+  if (mode === 'signup') {
+    if (p1.length < 6) return flash('كلمة المرور يجب ألا تقل عن 6 أحرف');
+    if (p1 !== $('a-pass2').value) return flash('كلمتا المرور غير متطابقتين');
+  }
+
+  btn.disabled = true;
+  try {
+    if (mode === 'signup') {
+      const { data, error } = await db.auth.signUp({
+        email, password: p1,
+        options: { data: { full_name: $('a-name').value.trim() }, emailRedirectTo: back() }
+      });
+      if (error) return flash(arErr(error.message));
+      if (data.user && data.user.identities && data.user.identities.length === 0)
+        return flash('هذا البريد مسجل بالفعل، اختر "لدي حساب بالفعل"');
+      if (!data.session) {
+        setOtp(true, email);
+        flash('أرسلنا كود التأكيد إلى بريدك', 'ok');
+      }
+    } else {
+      const { error } = await db.auth.signInWithPassword({ email, password: p1 });
+      if (error) {
+        if (/not confirmed/i.test(error.message)) {
+          const r = await db.auth.resend({ type: 'signup', email });
+          setOtp(true, email);
+          return flash(r.error ? arErr(r.error.message) : 'بريدك لم يُؤكَّد بعد، أرسلنا لك كوداً جديداً', r.error ? 'err' : 'ok');
+        }
+        return flash(arErr(error.message));
+      }
+    }
+  } catch (err) {
+    flash(arErr(err && err.message ? err.message : err));
+  } finally {
+    btn.disabled = false;
+  }
+});
+
+$('adm-add').onclick = async () => {
+  const m = $('adm-email').value.trim().toLowerCase();
+  if (!m.includes('@')) return flash('اكتب إيميلاً صحيحاً');
+  const { error } = await db.rpc('add_admin', { p_email: m });
+  if (error) return flash('فشلت الإضافة: ' + arErr(error.message));
+  $('adm-email').value = '';
+  flash('تمت إضافة المشرف. يدخل بهذا الإيميل بعد أن يسجّل حساباً ويؤكده بالكود.', 'ok');
+  loadStudents();
+};
+$('user-delete').onclick = async e => {
+  e.preventDefault();
+  if (!db || isAdmin) return;
+  if (!confirm('حذف حسابك نهائياً؟ سيُحذف حسابك واشتراكك ولا يمكن التراجع، ويمكنك التسجيل من جديد لاحقاً.')) return;
+  const { error } = await db.rpc('delete_my_account');
+  if (error) return flash('تعذّر الحذف: ' + arErr(error.message));
+  try { await db.auth.signOut({ scope: 'local' }); } catch (x) {}
+  applySession(null);
+  flash('تم حذف حسابك', 'ok');
+};
+$('otp-form').addEventListener('submit', async e => {
+  e.preventDefault();
+  if (!db || !pendingEmail) return;
+  const token = toAscii($('o-code').value);
+  if (token.length < 6) return flash('اكتب الكود كاملاً (6 أرقام)');
+  const btn = $('o-submit');
+  btn.disabled = true;
+  try {
+    const { data, error } = await db.auth.verifyOtp({ email: pendingEmail, token, type: 'signup' });
+    if (error) return flash(arErr(error.message));
+    if (data && data.session && data.session.user.id !== uid) applySession(data.session);
+    flash('تم تأكيد حسابك بنجاح', 'ok');
+  } catch (err) {
+    flash(arErr(err && err.message ? err.message : err));
+  } finally {
+    btn.disabled = false;
+  }
+});
+
+$('o-resend').onclick = async () => {
+  if (!db || !pendingEmail) return;
+  cooldown(60);
+  const { error } = await db.auth.resend({ type: 'signup', email: pendingEmail });
+  flash(error ? arErr(error.message) : 'أرسلنا كوداً جديداً إلى بريدك', error ? 'err' : 'ok');
+};
+
+$('o-back').onclick = () => setOtp(false);
+
+$('reset-form').addEventListener('submit', async e => {
+  e.preventDefault();
+  const p1 = $('r-pass').value;
+  if (p1 !== $('r-pass2').value) return flash('كلمتا المرور غير متطابقتين');
+  const { error } = await db.auth.updateUser({ password: p1 });
+  if (error) return flash(arErr(error.message));
+  recovering = false;
+  e.target.reset();
+  flash('تم تغيير كلمة المرور', 'ok');
+  const { data } = await db.auth.getSession();
+  applySession(data.session);
+});
+
+async function signOut() {
+  await db.auth.signOut();
+  flash('تم تسجيل الخروج', 'ok');
+}
+$('user-logout').onclick = signOut;
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
+}
+
+init();
+
+const DEF = {name:'منصة الأستاذ هشام الجيزاوي', sub:'لتدريس الفيزياء الحديثة والتطبيقية', quote:'الفيزياء مش مجرد معادلات.. دي لغة لفهم العالم', wa:'201065450289',
+  features:'🎬 محاضرات فيديو | بجودة عالية HD\n🔴 بث مباشر | وتفاعلي\n📄 المذكرات والملفات | والتدريبات\n📞 دعم فني | عبر واتساب',
+  badges:'🎓 شرح مبسط | من الصفر\n🎯 مناهج محدثة | ومتطورة\n🛡 جودة عالية | وضمان التعلم\n⭐ خبرة طويلة | في التدريس'};
+let SET = DEF;
+const pairs = t => String(t || '').split('\n').map(x => x.trim()).filter(Boolean).map(x => { const p = x.split('|'); return [p[0].trim(), (p[1] || '').trim()]; });
+function applySettings(d) {
+  SET = Object.assign({}, DEF, d || {});
+  $('hero-name').textContent = SET.name; $('hero-sub').textContent = SET.sub; $('hero-quote').textContent = '«' + SET.quote + '»';
+  $('features').innerHTML = pairs(SET.features).map(([a, b]) => `<div class="pf"><b>${esc(a)}</b><span>${esc(b)}</span></div>`).join('');
+  $('badges').innerHTML = pairs(SET.badges).map(([a, b]) => `<div><b>${esc(a)}</b>${esc(b)}</div>`).join('');
+  WA = 'https://wa.me/' + (String(SET.wa).replace(/\D/g, '') || DEF.wa);
+  document.querySelectorAll('a.contact').forEach(a => { a.href = WA; });
+  $('s-name').value = SET.name; $('s-sub').value = SET.sub; $('s-quote').value = SET.quote; $('s-wa').value = SET.wa; $('s-feat').value = SET.features; $('s-badges').value = SET.badges;
+}
+async function loadSettings() {
+  applySettings(null);
+  if (!db) return;
+  try { const { data } = await db.from('site_settings').select('data').eq('id', 1).maybeSingle(); if (data && data.data) applySettings(data.data); } catch (e) {}
+}
+$('s-save').onclick = async () => {
+  const d = { name: $('s-name').value.trim(), sub: $('s-sub').value.trim(), quote: $('s-quote').value.trim(), wa: $('s-wa').value.replace(/\D/g, ''), features: $('s-feat').value, badges: $('s-badges').value };
+  if (!d.name) return flash('اكتب اسم المنصة');
+  const { error } = await db.from('site_settings').upsert({ id: 1, data: d });
+  if (error) return flash('تعذّر الحفظ: ' + arErr(error.message));
+  applySettings(d); flash('تم حفظ الإعدادات', 'ok');
+};
+document.querySelector('.bnav').addEventListener('click', e => {
+  const b = e.target.closest('[data-go]'); if (!b) return;
+  const vis = x => x && x.offsetParent !== null;
+  if (b.dataset.go === 'home') return window.scrollTo({ top: 0, behavior: 'smooth' });
+  const list = b.dataset.go === 'lectures' ? ['content-wrap', 'paywall', 'auth-view'] : ['w-email', 'auth-view'];
+  const t = list.map(id => $(id)).find(vis);
+  if (t) t.scrollIntoView({ behavior: 'smooth', block: b.dataset.go === 'lectures' ? 'start' : 'center' });
+});
+
+const capBox = $('featured-lecture'); capBox.style.position = 'relative';
+let wmTimer = null;
+function armProtection() {
+  capBox.querySelectorAll('.wm,.fsbtn').forEach(e => e.remove());
+  clearInterval(wmTimer);
+  const m = capBox.querySelector('video, iframe');
+  if (!m) return;
+  if (m.tagName === 'VIDEO') { m.setAttribute('controlsList', 'nodownload noremoteplayback nofullscreen'); m.disablePictureInPicture = true; }
+  const marks = [0, 1].map(() => { const d = document.createElement('div'); d.className = 'wm'; d.textContent = userEmail || ''; capBox.appendChild(d); return d; });
+  const move = () => marks.forEach(d => {
+    d.style.transform = `translate(${m.offsetLeft + Math.random() * Math.max(0, m.offsetWidth - d.offsetWidth)}px, ${m.offsetTop + Math.random() * Math.max(0, m.offsetHeight - d.offsetHeight)}px)`;
+  });
+  move(); wmTimer = setInterval(move, 5000);
+  if (m.tagName === 'VIDEO' && capBox.requestFullscreen) {
+    const b = document.createElement('button'); b.className = 'fsbtn'; b.type = 'button'; b.textContent = '⛶'; b.title = 'ملء الشاشة';
+    b.onclick = () => { document.fullscreenElement ? document.exitFullscreen() : capBox.requestFullscreen(); };
+    capBox.appendChild(b);
+  }
+}
+new MutationObserver(ms => { if (ms.some(r => [...r.addedNodes].some(n => n.nodeType === 1 && !n.classList.contains('wm') && !n.classList.contains('fsbtn')))) armProtection(); }).observe(capBox, { childList: true });
+document.addEventListener('contextmenu', e => { if (e.target.closest('#content-wrap')) e.preventDefault(); });
+document.addEventListener('visibilitychange', () => { if (document.hidden) document.querySelectorAll('video').forEach(v => v.pause()); });
+document.addEventListener('keyup', e => { if (e.key === 'PrintScreen') { try { navigator.clipboard.writeText(' '); } catch (x) {} flash('التقاط الشاشة غير مسموح داخل المنصة', 'err'); } });
+loadSettings();
+</script>
+</body>
+</html>
